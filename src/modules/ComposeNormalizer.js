@@ -56,7 +56,8 @@ const ports = function(ports) {
     const [host, container] = port.split(":");
     return {
       host: host,
-      container: container,
+      // Remove protocol from ports definition like 12345/udp
+      container: container.replace(/\/.*$/, ""),
     };
   });
 };
@@ -142,7 +143,7 @@ export default {
           generatedServiceName,
           volume.hostRelative
         );
-        return `sudo -u dokku mkdir ${hostFullPath}\ndokku storage:mount ${generatedServiceName} ${hostFullPath}:${volume.container}\n`;
+        return `sudo -u dokku mkdir -p ${hostFullPath}\ndokku storage:mount ${generatedServiceName} ${hostFullPath}:${volume.container}\n`;
       }).join("\n");
     }
 
