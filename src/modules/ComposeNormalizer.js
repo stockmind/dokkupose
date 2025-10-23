@@ -130,7 +130,7 @@ export default {
       output += _.map(
         serviceOptions.ports,
         (port) =>
-          `dokku proxy:ports-add ${generatedServiceName} http:${port.host}:${port.container}\n`
+          `dokku ports:add ${generatedServiceName} http:${port.host}:${port.container}\n`
       ).join("");
     }
 
